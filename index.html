@@ -20,7 +20,7 @@
                     <button class="btn btn-primary btn-lg" @click="belJamPertama">Bel Jam Pertama</button>
                     <button class="btn btn-primary btn-lg" @click="belJamKedua">Bel Jam Kedua</button>
                     <button class="btn btn-primary btn-lg" @click="belSelesai">Bel Jam Selesai</button>
-                    <button class="btn btn-danger mt-5" @click="stopAllAudio">Stop Semua</button>
+                    <button class="btn btn-danger mt-5" @click="stopAllAudio">Stop</button>
                 </div>
             </div>
         </div>
@@ -31,10 +31,11 @@
     <script>
         const app = {
             bel: new Audio('bel.mp3'),
-            persiapan: new Audio('persiapan.wav'),
-            pertama: new Audio('pertama.wav'),
-            kedua: new Audio('kedua.wav'),
-            selesai: new Audio('selesai.wav'),
+            persiapan: new Audio('persiapan.aac'),
+            pertama: new Audio('pertama.aac'),
+            kedua: new Audio('kedua.aac'),
+            selesai: new Audio('selesai.aac'),
+
             belPersiapan() {
                 this.playAudio(this.persiapan)
             },
@@ -52,10 +53,12 @@
 
 
             playAudio(audio) {
+                this.stopAllAudio()
                 this.bel.play()
-                this.bel.addEventListener('ended', () => {
-                    audio.play();
-                });
+                setTimeout(() => {
+                    audio.play()
+                }, 17000)
+
             },
             stopAllAudio() {
                 this.bel.pause(); // Menghentikan audio bel
