@@ -53,9 +53,10 @@
 
 
             playAudio(audio) {
+                clearTimeout(myTime)
                 this.stopAllAudio()
                 this.bel.play()
-                setTimeout(() => {
+                const myTime = setTimeout(() => {
                     audio.play()
                 }, 17000)
 
