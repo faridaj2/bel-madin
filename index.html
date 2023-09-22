@@ -35,6 +35,7 @@
             pertama: new Audio('pertama.aac'),
             kedua: new Audio('kedua.aac'),
             selesai: new Audio('selesai.aac'),
+            myTime: null,
 
             belPersiapan() {
                 this.playAudio(this.persiapan)
@@ -53,12 +54,12 @@
 
 
             playAudio(audio) {
-                if (myTime) {
-                    clearTimeout(myTime)
-                }
                 this.stopAllAudio()
+                if (this.myTime) {
+                    clearTimeout(this.myTime)
+                }
                 this.bel.play()
-                const myTime = setTimeout(() => {
+                this.myTime = setTimeout(() => {
                     audio.play()
                 }, 17000)
 
