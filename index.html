@@ -8,20 +8,77 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .bg-orange {
+            background-color: #EE9322;
+            height: 50vh;
+        }
+
+        .text-color-black {
+            color: #004225;
+        }
+
+        .btn-outline-orange {
+            outline: solid 1px #EE9322;
+            color: #E25E3E;
+            background-color: white;
+        }
+
+        .btn-outline-orange:focus {
+            background-color: #EE9322;
+            outline: solid 1px #EE9322;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1 class="text-center">Bel Madin</h1>
-                <div class="d-flex flex-column gap-3" x-data="app">
-                    <button class="btn btn-primary btn-lg" @click="belPersiapan">Bel Persiapan</button>
-                    <button class="btn btn-primary btn-lg" @click="belJamPertama">Bel Jam Pertama</button>
-                    <button class="btn btn-primary btn-lg" @click="belJamKedua">Bel Jam Kedua</button>
-                    <button class="btn btn-primary btn-lg" @click="belSelesai">Bel Jam Selesai</button>
-                    <button class="btn btn-danger mt-5" @click="stopAllAudio">Stop</button>
+            <div
+                class="col bg-orange d-flex align-items-center justify-content-center flex-column text-white rounded-3">
+                <h1>Aplikasi Bel Diniyah</h1>
+                <p class="text-xs" style="font-size: 0.6rem;">PP. Darussalam Blokagung 2</p>
+                <div class="bg-white rounded-circle shadow" style="transform: translateY(px);">
+                    <img src="logo.png" style="height: 100px; width: 100px; transform: translate(-2px, -3px);" alt="">
                 </div>
+            </div>
+        </div>
+        <div class="row my-5 mx-3" x-data="app">
+            <div class="d-flex flex-column gap-3">
+                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                    @click="sirene"><ion-icon name="notifications-outline"></ion-icon>
+                    Sirene</button>
+                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                    @click="belPersiapan"><ion-icon name="notifications-outline"></ion-icon>
+                    Bel
+                    Persiapan</button>
+                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                    @click="belJamPertama"><ion-icon name="notifications-outline"></ion-icon>
+                    Bel
+                    Masuk Jam Pertama</button>
+                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                    @click="belJamKedua"><ion-icon name="notifications-outline"></ion-icon>
+                    Bel
+                    Masuk Jam Kedua</button>
+                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                    @click="belSelesai"><ion-icon name="notifications-outline"></ion-icon>
+                    Bel
+                    Selesai Diniyah</button>
+                <button class="btn btn-danger shadow d-flex justify-content-center align-items-center gap-2"
+                    @click="stopAllAudio"><ion-icon name="notifications-off-outline"></ion-icon>
+                    Stop Semua</button>
+
             </div>
         </div>
     </div>
@@ -36,7 +93,13 @@
             kedua: new Audio('kedua.aac'),
             selesai: new Audio('selesai.aac'),
             myTime: null,
-
+            sirene() {
+                this.stopAllAudio()
+                if (this.myTime) {
+                    clearTimeout(this.myTime)
+                }
+                this.bel.play()
+            },
             belPersiapan() {
                 this.playAudio(this.persiapan)
             },
