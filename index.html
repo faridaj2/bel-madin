@@ -45,11 +45,14 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+    </div>
+    <div class="container" style="max-width: 400px;">
 
         <div class="row">
             <div
-                class="col bg-new p-4 d-flex align-items-center justify-content-center flex-column text-white bb-bottom">
+                class="col bg-new p-4 d-flex align-items-center justify-content-center flex-column text-white bb-bottom text-center">
                 <h1>Aplikasi Bel Diniyah</h1>
                 <p class="text-sm" style="font-size: 0.9rem;">PP. Darussalam Blokagung 2</p>
                 <div class="bg-white rounded-circle shadow" style="transform: translateY(px);">
@@ -219,7 +222,10 @@
 
 
         }
-
+        window.addEventListener('load', function () {
+            let loading = document.querySelector('#loading');
+            loading.hidden = true;
+        });
 
     </script>
 </body>
