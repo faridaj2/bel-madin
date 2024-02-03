@@ -15,6 +15,7 @@
         rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -45,34 +46,36 @@
 
 <body>
     <div class="container">
+
         <div class="row">
             <div
-                class="col bg-orange d-flex align-items-center justify-content-center flex-column text-white rounded-3">
+                class="col bg-new p-4 d-flex align-items-center justify-content-center flex-column text-white bb-bottom">
                 <h1>Aplikasi Bel Diniyah</h1>
-                <p class="text-xs" style="font-size: 0.6rem;">PP. Darussalam Blokagung 2</p>
+                <p class="text-sm" style="font-size: 0.9rem;">PP. Darussalam Blokagung 2</p>
                 <div class="bg-white rounded-circle shadow" style="transform: translateY(px);">
                     <img src="logo.png" style="height: 100px; width: 100px; transform: translate(-2px, -3px);" alt="">
                 </div>
             </div>
         </div>
+
         <div class="row my-5 mx-3" x-data="app">
-            <div class="d-flex flex-column gap-3">
-                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+            <!-- <div class="d-flex flex-column gap-3">
+                <button class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click="sirene"><ion-icon name="notifications-outline"></ion-icon>
                     Sirene</button>
-                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                <button class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click="belPersiapan"><ion-icon name="notifications-outline"></ion-icon>
                     Bel
                     Persiapan</button>
-                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                <button class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click="belJamPertama"><ion-icon name="notifications-outline"></ion-icon>
                     Bel
                     Masuk Jam Pertama</button>
-                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                <button class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click="belJamKedua"><ion-icon name="notifications-outline"></ion-icon>
                     Bel
                     Masuk Jam Kedua</button>
-                <button class="btn btn-outline-orange shadow d-flex justify-content-center align-items-center gap-2"
+                <button class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click="belSelesai"><ion-icon name="notifications-outline"></ion-icon>
                     Bel
                     Selesai Diniyah</button>
@@ -80,6 +83,59 @@
                     @click="stopAllAudio"><ion-icon name="notifications-off-outline"></ion-icon>
                     Stop Semua</button>
 
+            </div> -->
+            <div class="d-flex justify-content-between gap-2">
+                <button class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2 my-3"
+                    @click="sirene">Sirene
+                    <ion-icon name="notifications-outline"></ion-icon></button>
+                <button class="btn btn-danger w-100 d-flex justify-content-center align-items-center gap-2 my-3"
+                    @click="stopAllAudio">Stop Semua
+                    <ion-icon name="notifications-outline"></ion-icon></button>
+
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+                    <h5 class="fw-bold fs-6 mb-3">DINIYAH</h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2"
+                            @click="belPersiapanDiniyah">Bel
+                            Persiapan <ion-icon name="notifications-outline"></ion-icon></button>
+                        <div class="d-flex gap-2 justify-content-between w-100">
+                            <button
+                                class="btn btn-primary flex-grow-1 d-flex justify-content-center align-items-center gap-2"
+                                @click="belJamPertama">
+                                Pertama
+                                <ion-icon name="notifications-outline"></ion-icon></button>
+                            <button
+                                class="btn flex-grow-1 btn-primary d-flex justify-content-center align-items-center gap-2"
+                                @click="belJamKedua">Kedua
+                                <ion-icon name="notifications-outline"></ion-icon></button>
+
+                        </div>
+                        <button class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2"
+                            @click="belSelesai">Bel
+                            Selesai <ion-icon name="notifications-outline"></ion-icon></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+
+                    <h5 class="fw-bold fs-6 mb-3">TAKROR</h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2"
+                            @click="belPersiapanTakror">Bel
+                            Persiapan <ion-icon name="notifications-outline"></ion-icon></button>
+
+                        <button class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2"
+                            @click="belTakrorDimulai">Bel
+                            Takror Dimulai <ion-icon name="notifications-outline"></ion-icon></button>
+                        <button class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2"
+                            @click="belTakrorSelesai">Bel
+                            Selesai <ion-icon name="notifications-outline"></ion-icon></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -89,10 +145,16 @@
     <script>
         const app = {
             bel: new Audio('bel.mp3'),
-            persiapan: new Audio('persiapan.aac'),
-            pertama: new Audio('pertama.aac'),
-            kedua: new Audio('kedua.aac'),
-            selesai: new Audio('selesai.aac'),
+            // Takror
+            persiapanTakror: new Audio('waktu/persiapan takror.wav'),
+            takrorDimulai: new Audio('waktu/takror dimulai.wav'),
+            takrorSelesai: new Audio('waktu/takror selesai.wav'),
+
+            // Diniyah
+            persiapanDiniyah: new Audio('waktu/persiapan diniyah.wav'),
+            pertama: new Audio('waktu/jam pertama.wav'),
+            kedua: new Audio('waktu/jam kedua.wav'),
+            selesai: new Audio('waktu/diniyah selesai.wav'),
             myTime: null,
             sirene() {
                 this.stopAllAudio()
@@ -101,8 +163,8 @@
                 }
                 this.bel.play()
             },
-            belPersiapan() {
-                this.playAudio(this.persiapan)
+            belPersiapanDiniyah() {
+                this.playAudio(this.persiapanDiniyah)
             },
             belJamPertama() {
                 this.playAudio(this.pertama)
@@ -114,7 +176,16 @@
                 this.playAudio(this.selesai)
             },
 
-
+            // Takror
+            belPersiapanTakror() {
+                this.playAudio(this.persiapanTakror)
+            },
+            belTakrorDimulai() {
+                this.playAudio(this.takrorDimulai)
+            },
+            belTakrorSelesai() {
+                this.playAudio(this.takrorSelesai)
+            },
 
 
             playAudio(audio) {
@@ -133,8 +204,8 @@
                 this.bel.pause(); // Menghentikan audio bel
                 this.bel.currentTime = 0; // Mengatur ulang posisi pemutaran audio bel
 
-                this.persiapan.pause(); // Menghentikan audio persiapan
-                this.persiapan.currentTime = 0; // Mengatur ulang posisi pemutaran audio persiapan
+                this.persiapanDiniyah.pause(); // Menghentikan audio persiapan
+                this.persiapanDiniyah.currentTime = 0; // Mengatur ulang posisi pemutaran audio persiapan
 
                 this.pertama.pause(); // Menghentikan audio pertama
                 this.pertama.currentTime = 0; // Mengatur ulang posisi pemutaran audio pertama
