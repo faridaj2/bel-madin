@@ -170,8 +170,9 @@
                 this.playAudio(this.persiapanDiniyah)
             },
             belJamPertama() {
-                this.playAudio(this.pertama)
-                this.sirene()
+                this.playAudio(this.pertama, () => {
+                    this.sirene()
+                })
             },
             belJamKedua() {
                 this.playAudio(this.kedua)
@@ -185,22 +186,28 @@
                 this.playAudio(this.persiapanTakror)
             },
             belTakrorDimulai() {
-                this.playAudio(this.takrorDimulai)
+                this.playAudio(this.takrorDimulai, () => {
+                    this.sirene()
+                })
             },
             belTakrorSelesai() {
                 this.playAudio(this.takrorSelesai)
             },
 
 
-            playAudio(audio) {
+            playAudio(audio, callback) {
                 this.stopAllAudio()
                 if (this.myTime) {
                     clearTimeout(this.myTime)
                 }
                 this.bel.play()
                 this.myTime = setTimeout(() => {
+                    this.stopAllAudio();
                     audio.volume = 1;
                     audio.play()
+                    if (callback) {
+                        audio.addEventListener("ended", callback)
+                    }
                 }, 17000)
 
             },
