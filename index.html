@@ -124,6 +124,7 @@
     <script>
         const app = {
             bel: new Audio('bel.mp3'),
+            second: new Audio('bel.mp3'),
             // Takror
             persiapanTakror: new Audio('waktu/persiapan takror.wav'),
             takrorDimulai: new Audio('waktu/takror dimulai.wav'),
@@ -146,9 +147,7 @@
                 this.playAudio(this.persiapanDiniyah)
             },
             belJamPertama() {
-                this.playAudio(this.pertama, () => {
-                    this.sirene()
-                })
+                this.playAudio(this.pertama, true)
             },
             belJamKedua() {
                 this.playAudio(this.kedua)
@@ -162,29 +161,20 @@
                 this.playAudio(this.persiapanTakror)
             },
             belTakrorDimulai() {
-                this.playAudio(this.takrorDimulai, () => {
-                    this.sirene()
-                })
+                this.playAudio(this.takrorDimulai, true)
             },
             belTakrorSelesai() {
                 this.playAudio(this.takrorSelesai)
             },
 
 
-            playAudio(audio, callback) {
+            playAudio(audio, callback = false) {
                 this.stopAllAudio()
-                if (this.myTime) {
-                    clearTimeout(this.myTime)
-                }
                 this.bel.play()
-                this.myTime = setTimeout(() => {
-                    this.stopAllAudio();
-                    audio.volume = 1;
-                    audio.play()
-                    if (callback) {
-                        audio.addEventListener("ended", callback)
-                    }
-                }, 17000)
+                this.bel.addEventListener('ended', () => audio.play())
+                audio.addEventListener('ended', () => {
+                    if (callback) this.second.play()
+                })
 
             },
             stopAllAudio() {
@@ -202,6 +192,15 @@
 
                 this.selesai.pause(); // Menghentikan audio selesai
                 this.selesai.currentTime = 0; // Mengatur ulang posisi pemutaran audio selesai
+
+                this.persiapanTakror.pause()
+                this.persiapanTakror.currentTime = 0; //
+
+                this.takrorDimulai.pause();
+                this.takrorDimulai.currentTime = 0; //
+
+                this.takrorSelesai.pause()
+                this.takrorSelesai.currentTime = 0; //
             }
 
 
