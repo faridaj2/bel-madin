@@ -171,8 +171,12 @@
             playAudio(audio, callback = false) {
                 this.stopAllAudio()
                 this.bel.play()
-                this.bel.addEventListener('ended', () => audio.play())
+                this.bel.addEventListener('ended', () => {
+                    this.stopAllAudio()
+                    audio.play()
+                })
                 audio.addEventListener('ended', () => {
+                    this.stopAllAudio()
                     if (callback) this.second.play()
                 })
 
